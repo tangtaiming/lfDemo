@@ -8,7 +8,6 @@
 
 namespace app\api\controller;
 
-use app\api\auto\JwtAuto;
 use app\api\http\response\ServiceResponse;
 use think\Controller;
 
@@ -20,17 +19,6 @@ class Movie extends Controller
 
     public function movieList() {
         return $this->jsonSuccessData(['hello' => '123']);
-    }
-
-    public function login() {
-        $username = '123';
-        $password = '321';
-
-        $jwtAuth = JwtAuto::getInstance();
-        $token = $jwtAuth->setUid(1)->encode()->getToken();
-        return $this->jsonSuccessData([
-            'token' => $token
-        ]);
     }
 
 }

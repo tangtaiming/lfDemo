@@ -4,8 +4,7 @@
  * Date: 2020/4/3
  * Time: 1:33
  */
-
-namespace app\api\middleware;
+namespace app\api\http\middleware;
 
 use app\api\auto\JwtAuto;
 use app\api\http\response\ServiceResponse;
@@ -19,6 +18,10 @@ load_trait('app/api/http/response/ServiceResponse');
  */
 class JwtMiddleware
 {
+
+    public function __construct()
+    {
+    }
 
     use ServiceResponse;
 
