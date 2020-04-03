@@ -116,16 +116,18 @@ class JwtAuto
      */
     public function encode() {
         $time = time();
-        $signer = new Sha256();
+        $signer = new \Lcobucci\JWT\Signer\Hmac\Sha256();
 
         $this->token = (new Builder())
             ->issuedBy($this->issued)
             ->permittedFor($this->permitted)
             ->identifiedBy('110')
             ->issuedAt($time)
-            ->canOnlyBeUsedAfter($time + 60)
+            //令牌使用时间
+            ->canOnlyBeUsedAfter($time + 1)
+            //令牌到期时间
             ->expiresAt($time + 3600)
-            ->withClaim('uid', 1)
+            ->withClaim('uid', $this->uid)
             ->getToken($signer, new Key($this->secretkey));
         return $this;
     }
@@ -151,7 +153,8 @@ class JwtAuto
         $data->setIssuer($this->issued);
         $data->setIssuer($this->permitted);
 
-        return $this->decode()->validate($data);
+        $va = $this->decode()->validate($data);
+        return $va;
     }
 
     /**
@@ -159,7 +162,7 @@ class JwtAuto
      * @return bool
      */
     public function verify() {
-        $signer = new Sha256();
+        $signer = new \Lcobucci\JWT\Signer\Hmac\Sha256();
 
         $re = $this->decode()->verify($signer, new Key($this->secretkey));
         return $re;

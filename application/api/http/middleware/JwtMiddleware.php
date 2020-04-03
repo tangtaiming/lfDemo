@@ -35,6 +35,8 @@ class JwtMiddleware
                 $verify = $jwtAuth->verify();
             } catch (\InvalidArgumentException $e) {
                 return new Response($this->jsonData(400, 'Token 非法'));
+            } catch (\RuntimeException $re) {
+                return new Response($this->jsonData(400, '系统内部解析错误, 结果:'));
             }
 
             if ($validate && $verify) {

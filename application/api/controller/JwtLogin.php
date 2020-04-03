@@ -11,8 +11,6 @@ use app\api\auto\JwtAuto;
 use app\api\http\response\ServiceResponse;
 use think\Controller;
 
-load_trait('app/api/http/response/ServiceResponse');
-
 /**
  * jwt 登录授权
  * Class JwtLogin
