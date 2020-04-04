@@ -15,8 +15,12 @@ Route::get('think', function () {
 
 //Route::get('hello/:name', 'index/hello');
 
+Route::get('auth', 'api/jwt_login/auth');
 Route::rule('hello/:name','index/hello')
     ->middleware('jwt_auth');
+Route::rule('movie','api/movie/movieList')
+    ->middleware('jwt_auth');
+
 
 return [
 

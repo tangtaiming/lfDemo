@@ -11,8 +11,6 @@ namespace app\api\controller;
 use app\api\http\response\ServiceResponse;
 use think\Controller;
 
-load_trait('app/api/http/response/ServiceResponse');
-
 class Movie extends Controller
 {
     use ServiceResponse;

@@ -7,7 +7,9 @@
 namespace app\api\http\middleware;
 
 use app\api\auto\JwtAuto;
+use app\api\exceptions\ApiException;
 use app\api\http\response\ServiceResponse;
+use app\common\ResponseData;
 use think\Exception;
 use think\Response;
 
@@ -27,25 +29,16 @@ class JwtMiddleware
         if ($token) {
             $jwtAuth = JwtAuto::getInstance();
             $jwtAuth->setToken($token);
-
-            $validate = false;
-            $verify = false;
-            try {
-                $validate = $jwtAuth->validate();
-                $verify = $jwtAuth->verify();
-            } catch (\InvalidArgumentException $e) {
-                return new Response($this->jsonData(400, 'Token 非法'));
-            } catch (\RuntimeException $re) {
-                return new Response($this->jsonData(400, '系统内部解析错误, 结果:'));
-            }
+            $validate = $jwtAuth->validate();
+            $verify = $jwtAuth->verify();
 
             if ($validate && $verify) {
                 return $next($request);
             } else {
-                return new Response($this->jsonData(400, '登录过期'));
+                throw new ApiException(ResponseData::TOKEN_EXPIRED_ERROR);
             }
         } else {
-            return new Response($this->jsonData(400, 'Token 缺失'));
+            throw new ApiException(ResponseData::TOKEN_NOT_ERROR);
         }
     }
 
