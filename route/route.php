@@ -9,6 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+//Route::domain('www', 'public');
+
 Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
@@ -22,6 +24,8 @@ Route::rule('movie','api/movie/movieList')
     ->middleware('jwt_auth');
 Route::rule('godformulas','api/godformula_controller/godformulas')
     ->middleware('jwt_auth');
+
+Route::resource('blogs','index/blog');
 
 return [
 
