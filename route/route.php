@@ -20,7 +20,8 @@ Route::rule('hello/:name','index/hello')
     ->middleware('jwt_auth');
 Route::rule('movie','api/movie/movieList')
     ->middleware('jwt_auth');
-
+Route::rule('godformulas','api/godformula_controller/godformulas')
+    ->middleware('jwt_auth');
 
 return [
 

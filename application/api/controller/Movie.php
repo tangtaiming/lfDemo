@@ -9,6 +9,8 @@
 namespace app\api\controller;
 
 use app\api\http\response\ServiceResponse;
+use app\api\model\DoubanMovie;
+use app\api\model\User;
 use think\Controller;
 
 class Movie extends Controller
@@ -16,7 +18,9 @@ class Movie extends Controller
     use ServiceResponse;
 
     public function movieList() {
-        return $this->jsonSuccessData(['hello' => '123']);
+        $movieDao = new \app\api\model\DoubanMovie();
+        $movieList = $movieDao->findMovieList();
+        return $this->jsonSuccessData($movieList);
     }
 
 }

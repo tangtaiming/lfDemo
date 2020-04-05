@@ -7,6 +7,8 @@
 
 namespace app\api\model;
 
+use think\console\Table;
+use think\Db;
 use think\Model;
 
 /**
@@ -17,9 +19,22 @@ use think\Model;
 class User extends Model
 {
 
-    public function __construct($data = [])
+    private static $table;
+
+    protected static function init()
     {
-        parent::__construct($data);
+        self::$table = Db::table('douban_movie');
+    }
+
+    /**
+     * 查询所有数据
+     * @return array|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function findAll() {
+        return self::$table->select();
     }
 
 }
