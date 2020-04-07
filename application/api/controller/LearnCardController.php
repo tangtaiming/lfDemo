@@ -4,6 +4,9 @@
 namespace app\api\controller;
 
 
+use app\api\http\response\ServiceResponse;
+use app\api\service\LearnCardService;
+use think\App;
 use think\Controller;
 use think\Request;
 
@@ -15,6 +18,15 @@ use think\Request;
 class LearnCardController extends Controller
 {
 
+    use ServiceResponse;
+    private $learCardService;
+
+    public function __construct(App $app = null)
+    {
+        parent::__construct($app);
+        $this->learCardService = new LearnCardService();
+    }
+
     /**
      * 显示资源列表
      *
@@ -22,7 +34,7 @@ class LearnCardController extends Controller
      */
     public function index()
     {
-        echo 'LearnCardController';
+        return $this->learCardService->index($this->request);
     }
 
     /**
@@ -43,7 +55,7 @@ class LearnCardController extends Controller
      */
     public function save(Request $request)
     {
-        echo 'save';
+        return $this->learCardService->save($request);
     }
 
     /**

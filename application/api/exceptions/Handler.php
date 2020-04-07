@@ -37,9 +37,9 @@ class Handler extends Handle
             }
             $message = $e->getMessage() ? $e->getMessage() : ResponseData::UNKNOWN_ERROR[1];
 
-            return Response::create($this->jsonData($code, $message));
+//            return Response::create($this->jsonData($code, $message));
         }
-//        return parent::render($e);
+        return parent::render($e);
     }
 
 }

@@ -35,4 +35,10 @@ class ResponseData
      */
     const ERROR_PASSWORD = [10001, '密码错误'];
 
+
+    /**
+     * error_code 11001-12000 dao 操作错误
+     */
+    const ERROR_SAVE_FAIL = [11001, '保存失败'];
+
 }

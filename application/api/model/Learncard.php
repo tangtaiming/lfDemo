@@ -11,7 +11,7 @@ use think\Model;
  * Class LearnCard
  * @package app\api\model
  */
-class LearnCard extends Model
+class Learncard extends Model
 {
 
     private $db;
