@@ -26,6 +26,7 @@ Route::rule('godformulas','api/godformula_controller/godformulas')
     ->middleware('jwt_auth');
 
 Route::resource('blogs','index/blog');
+Route::resource('learnCards','api/learn_card_controller');
 
 return [
 
