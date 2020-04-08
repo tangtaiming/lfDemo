@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加班记录</title>
+</head>
+<body>
+    <form action="/index.php/index/overtime_controller/save" method="post">
+        <div>
+            <label>加班人:</label>
+            <span>
+                唐太明
+                <input type="hidden" name="overtimeUserId" value="2">
+            </span>
+        </div>
+        <div>
+            <label>加班开始时间:</label>
+            <span>
+                18:30
+            </span>
+        </div>
+        <div>
+            <label>今天加班时长:</label>
+            <span>
+                1小时
+                <input type="hidden" name="overDateTime" value="1">
+            </span>
+        </div>
+        <div>
+            <input type="submit" name="overtimeSubmit" value="提交加班信息"/>
+        </div>
+    </form>
+</body>
+</html>
