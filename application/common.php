@@ -10,3 +10,17 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function getUserNameByUserId($userId)
+{
+    return '唐太明';
+}
+
+/**
+ * 四舍五入 保留4位小数
+ * @param $over_datetime
+ * @return float
+ */
+function roundFour($over_datetime)
+{
+    return round($over_datetime, 1);
+}

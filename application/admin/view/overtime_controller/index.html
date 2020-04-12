@@ -1,0 +1,102 @@
+<style>
+    .range input {
+        width:30px;
+    }
+</style>
+<form id="pagerForm" method="post" action="/index.php/admin/overtime_controller/index">
+    <input type="hidden" name="pageNum" value="{$page.current_page}" />
+    <input type="hidden" name="numPerPage" value="{$page.per_page}" />
+    <input type="hidden" name="orderField" value="{$orderField}" />
+    <input type="hidden" name="orderDirection" value="{$orderDirection}" />
+</form>
+<div class="pageHeader">
+    <form rel="pagerForm" onsubmit="return navTabSearch(this);" action="/index.php/admin/overtime_controller/search" method="post">
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td class="range">
+                        ID:
+                        <input name="id[to]" class="textInput" type="text" value="">
+                        <span class="limit">-</span>
+                        <input name="id[form]" class="textInput" type="text" value="">
+                    </td>
+                    <td class="range">
+                        加班时长:
+                        <input name="over_datetime[to]" class="textInput" type="text" value="">
+                        <span class="limit">-</span>
+                        <input name="over_datetime[form]" class="textInput" type="text" value="">
+                    </td>
+                </tr>
+            </table>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+                    <li><a class="button" href="/index.php/admin/overtime_controller/search" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="/index.php/admin/overtime_controller/create" target="navTab"><span>添加加班信息</span></a></li>
+            <li><a class="delete" href="/index.php/admin/overtime_controller/batchDelete" target="selectedTodo" posttype="string" title="确定要删除吗？" warn="批量删除"><span>批量删除</span></a></li>
+            <li><a class="delete" href="/index.php/admin/overtime_controller/delete?id={sid}" target="ajaxTodo" title="确定要删除吗？" warn="请选择一个加班信息"><span>删除</span></a></li>
+            <li><a class="edit" href="/index.php/admin/overtime_controller/edit?id={sid}" target="navTab" warn="请选择一个加班信息"><span>修改</span></a></li>
+            <li class="line">line</li>
+            <li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+            <li><a class="icon" href="javascript:$.printBox('w_list_print')"><span>打印</span></a></li>
+        </ul>
+    </div>
+
+    <div id="w_list_print">
+        <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+            <thead>
+            <tr>
+                <th width="22"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+                <th width="80" orderField="id" class="{$orderDirection}">ID</th>
+                <th width="100" orderField="user_id">用户名称</th>
+                <th width="100">加班时长(小时)</th>
+                <th>创建时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $page.data as $key=>$vo}
+            <tr target="sid" rel="{$vo.id}">
+                <td><input name="ids" value="{$vo.id}" type="checkbox"></td>
+                <td>{$vo.id}</td>
+                <td>{$vo.user_id|getUserNameByUserId}</td>
+                <td>{$vo.over_datetime|roundFour}</td>
+                <td>{$vo.create_datetime}</td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panelBar" >
+        <div class="pages">
+            <span>显示</span>
+            <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                {foreach $page.per_page_option as $key=>$vo}
+                    {eq name="$vo" value="$page.per_page"}
+                        <option value="{$vo}" selected="selected">{$vo}</option>
+                        {else/}
+                        <option value="{$vo}">{$vo}</option>
+                    {/eq}
+                {/foreach}
+                <!--<option value="20">20</option>-->
+                <!--<option value="50">50</option>-->
+                <!--<option value="100">100</option>-->
+                <!--<option value="200">200</option>-->
+            </select>
+            <span>条，共{$page.total}条</span>
+        </div>
+
+        <div class="pagination" targetType="navTab" totalCount="{$page.total}" numPerPage="{$page.per_page}" pageNumShown="10" currentPage="{$page.current_page}"></div>
+
+    </div>
+
+</div>
