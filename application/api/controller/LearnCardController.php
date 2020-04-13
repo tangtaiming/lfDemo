@@ -19,12 +19,12 @@ class LearnCardController extends Controller
 {
 
     use ServiceResponse;
-    private $learnCardService;
+    private $learCardService;
 
     public function __construct(App $app = null)
     {
         parent::__construct($app);
-        $this->learnCardService = new LearnCardService();
+        $this->learCardService = new LearnCardService();
     }
 
     /**
@@ -34,7 +34,7 @@ class LearnCardController extends Controller
      */
     public function index()
     {
-        echo $this->jsonSuccessData($this->learnCardService->index($this->request));
+        return $this->learCardService->index($this->request);
     }
 
     /**
@@ -55,7 +55,7 @@ class LearnCardController extends Controller
      */
     public function save(Request $request)
     {
-        echo 'save';
+        return $this->learCardService->save($request);
     }
 
     /**

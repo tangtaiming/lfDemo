@@ -26,7 +26,7 @@ class Handler extends Handle
 
     public function render(Exception $e)
     {
-        if ($e instanceof ApiException) {
+        if ($e instanceof ApiException || $e instanceof TpException) {
             $code = $e->getCode();
             $message = $e->getMessage();
             return Response::create($this->jsonData($code, $message));
@@ -37,7 +37,7 @@ class Handler extends Handle
             }
             $message = $e->getMessage() ? $e->getMessage() : ResponseData::UNKNOWN_ERROR[1];
 
-//            return Response::create($this->jsonData($code, $message));
+//          return Response::create($this->jsonData($code, $message));
         }
         return parent::render($e);
     }
