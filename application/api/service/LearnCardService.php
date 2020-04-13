@@ -3,7 +3,7 @@
 
 namespace app\api\service;
 
-use app\api\model\LearnCard;
+use app\api\model\Learncard;
 use think\Request;
 
 /**
@@ -18,7 +18,7 @@ class LearnCardService
 
     public function __construct()
     {
-        $this->learnCardModel = new LearnCard();
+        $this->learnCardModel = new Learncard();
     }
 
     public function index(Request $re) {
@@ -30,7 +30,9 @@ class LearnCardService
         if (is_null($pageSize) || !is_numeric($pageSize)) {
             $pageSize = 20;
         }
-         $this->learnCardModel->page($pageNumber, $pageSize)->select();
+
+        $learnCard = $this->learnCardModel->whereColumn('id')->page($pageNumber, $pageSize)->select();
+        return $learnCard->id;
     }
 
 }
